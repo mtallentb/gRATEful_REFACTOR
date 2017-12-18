@@ -1,0 +1,103 @@
+<div ng-controller="searchCtrl">
+  	<div class="container">
+		<div class="row">
+			<h5>Find the Best Live Version of Your Favorite Grateful Dead Tune</h5>
+			<div class="input-field col s12">
+		      <input value="Search Spotify" id="searchBar" type="text"  ng-model="songSearch.song">
+		    </div>
+		</div>
+		<div class="row">
+			<a class="waves-effect waves-light btn blue darken-4" id="search" ng-click="searchSpotify()">Search</a>
+		</div>
+
+		<div class="row">
+			
+			<div class="preloader-wrapper active center" ng-if="loading">
+			    <div class="spinner-layer spinner-red-only">
+			      <div class="circle-clipper left">
+			        <div class="circle"></div>
+			      </div><div class="gap-patch">
+			        <div class="circle"></div>
+			      </div><div class="circle-clipper right">
+			        <div class="circle"></div>
+			      </div>
+			    </div>
+			</div>
+
+			<ul class="collection" id="targetCollection" ng-show="showResults">
+
+				<div ng-repeat="song in songResults | orderBy:'-vote' track by $index">
+					<li>
+						<iframe ng-src="{{'https://open.spotify.com/embed?uri=spotify:track:' + song.songID | trustAsResourceUrl }}" width="100%" height="80" frameborder="0" allowtransparency="true"></iframe>
+		    		
+				    		<!-- FOR EACH SONG IN FIREBASE -->
+							
+						    <!-- FAVORITE BUTTON FOR SONGS IN FIREBASE -->
+				    	
+							<a ng-click="song.favorite = !song.favorite; addToFavorites(songResults[$index])">
+						    	<i id="fav--{{song.songID}}" class="small favs right material-icons">{{song.favorite ? 'favorite' : 'favorite_border'}}</i>
+						    </a>
+
+						 <!-- UPVOTE/DOWNVOTE -->
+					    <div id="upvote--${{$index}}">
+					    	<a ng-click="downvote(song)">
+								<i id="downvote--{{song.songID}}" class="small  right material-icons" onclick="Materialize.toast('Downvoted!', 1000, 'red')">arrow_drop_down</i>
+							</a>
+
+							<!-- <div ng-repeat="vote in votes"> -->
+								<h5 class="right voteCount">{{song.vote}}</h5>
+							<!-- </div> -->
+
+					    	<a ng-click="upvote(song)">
+								<i id="upvote--{{song.songID}}" class="small right material-icons" onclick="Materialize.toast('Upvoted!', 1000, 'green')">arrow_drop_up</i>
+							</a>
+					    </div>
+						<!-- COLLAPSIBLE COMMENT SECTION -->
+					    <ul class="collapsible" data-collapsible="accordion">
+						    <li>
+						      <div class="collapsible-header">Comments</div>
+						      <div class="collapsible-body">
+								<div class="row">
+								    <form class="col s12">
+								      <div class="row">
+								        <div class="input-field col s6">
+								          <input placeholder="Your Name" id="first_name" type="text" ng-model="comment.name">
+								        </div>
+								      </div>
+								      <div class="row">
+								        <div class="col s12">
+								          <div class="input-field col s12">
+								            <textarea  placeholder="Your Comment" id="textarea1" class="materialize-textarea" ng-model="comment.comment"></textarea>
+								          </div>
+								        </div>
+								      </div>
+								      <div class="row">
+										<a id="submit-{{song.songID}}" class="waves-effect waves-light btn blue darken-2" ng-click="pushComment(song)">Submit</a>
+								      </div>
+								    </form>
+							    </div>
+							    <div class="row">
+									<!-- <h5>What others thought</h5> -->
+							    </div>
+							    <ul class="collection">
+									<div ng-repeat="com in commentsArr">
+								      <li class="comment" ng-if="com.songID === song.songID">
+							    		<p><strong>{{com.commentor}}:</strong></p> 
+							    		<p>{{com.comment}}</p>
+							    		<p><strong>{{com.date}}</strong></p>
+							    		<div ng-if="com.uid === userID">
+							    			<a>Delete</a>
+							    		</div>
+								      </li>
+								    </div>
+								</ul>
+						      </div>
+						    </li>
+						</ul>
+					</li>
+				</div>
+			</ul>
+			<h3 ng-show="songResults.length === 0 && showResults">No Results Found</h3>
+		</div>
+	</div>	
+</div>

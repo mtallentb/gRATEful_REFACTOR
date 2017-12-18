@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css?family=Averia+Libre');
+
+.brand-logo {
+	font-family: 'Averia Libre', cursive;
+}
+
+#carousel {
+	margin-top: 30px;
+}
+
+/* label focus color */
+ .input-field input:focus + label {
+   color: #0d47a1 !important;
+ }
+ /* label underline focus color */
+ .row .input-field input:focus {
+   border-bottom: 1px solid #0d47a1 !important;
+   box-shadow: 0 1px 0 0 #0d47a1 !important
+ }
+
+ #targetCollection {
+ 	border: 0px;
+ }
+
+  #targetCollection2 {
+ 	border: 0px;
+ }
+
+ .ratings {
+ 	padding: 5px;
+ }
+
+ .collapsible {
+ 	// border: 0;
+ 	box-shadow: 0;
+ 	margin-top: -10px;
+ }
+
+ .collection li {
+ 	box-shadow: 0;
+ }
+
+ .collapsible-header {
+ 	border-bottom: 0;
+ }
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
+ 	color: #0d47a1;
+ }
+
+ .favs {
+ 	padding-top: 3px;
+ 	margin-right: 5px;
+ }
+
+ .material-icons {
+ 	color: #b71c1c;
+ }
+ 
+ a[ng-click]{
+    cursor: pointer;
+}
+
+.voteCount {
+	margin-left: 12px;
+	margin-top: 2px;
+}
+
+.comment {
+	border-bottom: 1px solid #ccc;
+}
