@@ -5,7 +5,7 @@
 	<title>gRATEful | Find the Best Live Version of Your Favorite Grateful Dead Tune</title>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="./css/main.css">
 	<script>
     window.onload = function () {
       var hash = window.location.hash;
@@ -20,7 +20,7 @@
     }
   </script>
 </head>
-<body ng-app="gRATEful">
+<body ng-app="Practice">
 	
 	<div ng-include="'partials/navbar.html'"></div>
 
@@ -28,7 +28,7 @@
 
 		<h2 class="center">The gRATEful App</h2>
 
-		<img src="app/images/dead-b&w.jpg" class="center-align" />
+		<img src="../app/images/dead-b&w.jpg" class="center-align"/>
 
 		<p>Over the course of their 30 year musical history, the Grateful Dead played more than 2,300 live shows around the globe. The goal of this app is to find the "best" live versions of any song!</p>
 
@@ -52,29 +52,28 @@
 	</footer>
 
 	<!-- CDN links -->
-	<script type="text/javascript" src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
-	<script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/angular-spotify@1.5.1/src/angular-spotify.min.js"></script>
+	<script type="text/javascript" src="./lib/node_modules/firebase/firebase.js"></script>
+	<script type="text/javascript" src="./lib/node_modules/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="./lib/node_modules/angular/angular.min.js"></script>
+	<script type="text/javascript" src="./lib/node_modules/angular-route/angular-route.min.js"></script>
+	<script type="text/javascript" src="./lib/node_modules/angular-spotify/src/angular-spotify.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+	<script type="text/javascript" src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.2.2/angular-materialize.min.js"></script>
 
 
 	<!-- App.js file and credentials -->
-	<script type="text/javascript" src="app/app.js"></script>
-	<script type="text/javascript" src="app/values/fb-creds.js"></script>
-	<script type="text/javascript" src="app/values/spotify-creds.js"></script>
+	<script type="text/javascript" src="./app/app.js"></script>
+	<script type="text/javascript" src="./app/values/fb-creds.js"></script>
+	<script type="text/javascript" src="./app/values/spotify-creds.js"></script>
 
 	<!-- Factories -->
 	<!-- <script type="text/javascript" src="./app/factories/factory-user.js"></script> -->
-	<script type="text/javascript" src="app/factories/factory-firebase.js"></script>
+	<script type="text/javascript" src="./app/factories/factory-firebase.js"></script>
 
-	<script type="text/javascript" src="app/controllers/navbar-controller.js"></script>
-	<script type="text/javascript" src="app/controllers/search-controller.js"></script>
-	<script type="text/javascript" src="app/controllers/favorites-controller.js"></script>
+	<script type="text/javascript" src="./app/controllers/navbar-controller.js"></script>
+	<script type="text/javascript" src="./app/controllers/search-controller.js"></script>
+	<script type="text/javascript" src="./app/controllers/favorites-controller.js"></script>
 </body>
 </html>
