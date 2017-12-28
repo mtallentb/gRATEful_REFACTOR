@@ -1,6 +1,6 @@
 "use strict";
 
-app.controller("navbarCtrl", function($scope, $q, $route, $window, $location, firebaseFactory, Spotify){
+app.controller("navbarCtrl", function($scope, $rootScope, $route, $location, firebaseFactory, Spotify){
 
     $scope.albums = [];
     $scope.mainSongArr = [];
@@ -25,16 +25,28 @@ app.controller("navbarCtrl", function($scope, $q, $route, $window, $location, fi
     /* log into Firebase */
     $scope.login = function() {
         console.log("Clicked Login!");
-        firebaseFactory.logInGoogle();
-    };
-
-    $scope.loginSpotify = function() {
-        Spotify.login();
+        firebaseFactory.logInGoogle()
+        .then(() => {
+            console.log("Logging into Spotify...");
+            Spotify.login();
+        })
+        .then(() => {
+            $rootScope.isAuthed = true;
+        })
+        .then(() => {
+            $rootScope.songsInDB = $scope.getSongs();
+        });
     };
 
     $scope.logout = function() {
-        firebaseFactory.logOut();
-        $scope.loggedIn = false;
+        firebaseFactory.logOut()
+        .then(() => {
+            $scope.loggedIn = false;
+            $rootScope.isAuthed = false;
+        })
+        .then(() => {
+            $route.reload();
+        });
     };
 
     $scope.getUserKeys = function() {

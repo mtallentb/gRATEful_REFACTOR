@@ -1,9 +1,9 @@
 <div ng-controller="searchCtrl">
-  	<div class="container">
+  	<div class="container" ng-if=isAuthed>
 		<div class="row">
-			<h5>Find the Best Live Version of Your Favorite Grateful Dead Tune</h5>
+			<h5>Search you favorite Dead tune...</h5>
 			<div class="input-field col s12">
-		      <input value="Search Spotify" id="searchBar" type="text"  ng-model="songSearch.song">
+		      <input value="Search Spotify" id="searchBar" type="text"  ng-model="songSearch.song" ng-keyup="keypress($event)">
 		    </div>
 		</div>
 		<div class="row">

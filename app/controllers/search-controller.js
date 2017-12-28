@@ -1,6 +1,6 @@
 "use strict";
 
-app.controller("searchCtrl", function($scope, $q, $route, $window, $location, firebaseFactory, Spotify, $firebaseObject, $firebaseArray){
+app.controller("searchCtrl", function($scope, $q, $route, $window, $location, firebaseFactory, Spotify){
 
     $scope.showResults = false;
     $scope.noresults = false;
@@ -17,10 +17,14 @@ app.controller("searchCtrl", function($scope, $q, $route, $window, $location, fi
     $scope.showArr = false;
     $scope.fav = false;
     $scope.commentsArr = [];
-    $scope.favoriteStatus = $firebaseArray(firebase.database().ref().child("songs").child("eoqovG0XD7fTEto26s3HMuSDbMG3"));
     let voteRef = firebase.database().ref().child("votes");
-    $scope.votes = $firebaseObject(voteRef);
 
+    $scope.keypress = function(event) {
+        if (event.keyCode == 13) {
+            console.log("Enter Pressed!");
+            $scope.searchSpotify();
+        }
+    };
 
     $scope.getSongs = function() {
         $scope.showArr = true;

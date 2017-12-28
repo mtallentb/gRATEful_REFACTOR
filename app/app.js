@@ -1,10 +1,14 @@
 "use strict";
 
 
-const app = angular.module("Practice", ["ngRoute" , "spotify", "firebase", "ui.materialize"]);
+const app = angular.module("gRATEful", ["ngRoute" , "spotify", "firebase", "ui.materialize"]);
 
 /* initializes firebase */
-app.run(function (FBCreds) {
+app.run(function($rootScope, FBCreds) {
+
+    $rootScope.isAuthed = false;
+    $rootScope.songsInDB = [];
+
     firebase.initializeApp(FBCreds);
 
     $(document).ready(function(){
@@ -33,7 +37,7 @@ app.config(($routeProvider, SpotifyProvider, SpotifyCreds) => {
     .otherwise('/');
 
     SpotifyProvider.setClientId(`${SpotifyCreds.client_id}`);
-    SpotifyProvider.setRedirectUri('https://797a3854.ngrok.io/');
+    SpotifyProvider.setRedirectUri('https://e7076a4c.ngrok.io/');
     SpotifyProvider.setScope('user-read-private playlist-read-private playlist-modify-private playlist-modify-public');
 
 });

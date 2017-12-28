@@ -156,6 +156,18 @@ app.factory("firebaseFactory", function($q, $http, $rootScope, FBCreds) {
             songKey: db.ref().key,
             uid: userID
 	  	});
+		let songsInDB = $rootScope.songsInDB;
+		let updatedArr = songsInDB.concat(song);
+		$rootScope.songsInDB = updatedArr;
+	};
+
+	let removeFromFavorites = function(song) {
+		let userID = getCurrentUser();
+		console.log("Removing " + song.title + " from favorites! " + song.songKey);
+		db.ref(`/songs/${userID}/${song.songKey}`).remove();
+		let songsInDB = $rootScope.songsInDB;
+		let updatedArr = songsInDB.filter((item) => song.songID !== item.songID );
+		$rootScope.songsInDB = updatedArr;
 	};
 
 	let getSongs = function() {
@@ -175,5 +187,5 @@ app.factory("firebaseFactory", function($q, $http, $rootScope, FBCreds) {
 	  });
 	};
 
-	return { logInGoogle, logOut, getUserSongs, getVotes, upvote, downvote, addToFavorites, getSongs, getCurrentUser, getComments, pushComment };
+	return { logInGoogle, logOut, getUserSongs, getVotes, upvote, downvote, addToFavorites, removeFromFavorites, getSongs, getCurrentUser, getComments, pushComment };
 });
