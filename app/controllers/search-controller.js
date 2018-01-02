@@ -137,7 +137,12 @@ app.controller("searchCtrl", function($scope, $q, $route, $window, $location, fi
     $scope.downvote = function(song) {
         console.log("Downvoted " + song.name + "!");
         console.log("Song ID: ", song.id);
-        firebaseFactory.downvote(song); 
+        firebaseFactory.downvote(song);
+        $scope.songResults.forEach((item, index) => {
+            if (song.songID === item.songID) {
+                item.vote--;
+            }
+        }); 
     };
 
     $scope.addToFavorites = function(song) {
@@ -158,8 +163,6 @@ app.controller("searchCtrl", function($scope, $q, $route, $window, $location, fi
         $scope.getComments();
         $scope.songResults = [];
         let userSongsArr;
-        // votesArr = [];
-        // $scope.showResults = true;
         firebaseFactory.getVotes()
         .then((votes) => {
             console.log("Votes: ", votes);
@@ -226,7 +229,6 @@ app.controller("searchCtrl", function($scope, $q, $route, $window, $location, fi
                                 songID: item.id,
                                 vote: item.vote,
                                 favorite: false,
-                                songKey: 'song key',
                                 voteKey: item.voteKey,
                                 uid: userID
                             });
@@ -238,7 +240,6 @@ app.controller("searchCtrl", function($scope, $q, $route, $window, $location, fi
                                 vote: 0,
                                 favorite: item.favorite,
                                 songKey: item.songKey,
-                                voteKey: 'vote key',
                                 uid: userID
                             });
                         }
@@ -248,8 +249,6 @@ app.controller("searchCtrl", function($scope, $q, $route, $window, $location, fi
                                 songID: item.id,
                                 vote: 0,
                                 favorite: false,
-                                songKey: 'song key',
-                                voteKey: 'vote key',
                                 uid: userID
                             });
                         }

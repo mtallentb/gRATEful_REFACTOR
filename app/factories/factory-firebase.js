@@ -101,45 +101,50 @@ app.factory("firebaseFactory", function($q, $http, $rootScope, FBCreds) {
 		});
 	};
 
-	let upvote = function(song) {
-	  let votesArr = [];
-	  getVotes()
-	  .then((votes) => {
-            votes.sort((a, b) => {
-                return a.vote - b.vote;
-            });
-            console.log("Sorted Votes: ", votes);
-            return votes;
-	  })
-	  .then((votesArr) => {
-	  	let inFB = false;
-	  	let vote;
-            // console.log("votes array:", votesArr);
-        votesArr.forEach((item, index) => {
-        	// console.log("vote: ", item);
-        	if (String(song.songID) === item.songID) {
-                inFB = true;
-                vote = item;
-                item.vote++;
-  				return vote;
-            }
-        });
-        if (inFB) {
-        	console.log("/votes/" + vote.voteKey);
-        	console.log(song.title + "is in Firebase!");
-        	db.ref(`/votes/${vote.voteKey}/`).update({
-                	vote: vote.vote
-            });
-        } else if (!inFB) {
-        	console.log(song.title + " is NOT in Firebase!");
-        	db.ref(`/votes/`).push({
-			    vote: 1,
-			    title: song.title,
-			    songID: song.songID
-			});
-        }
-	  });
+	let upvote = (song) => {
+		console.log("Song Info: " + JSON.stringify(song));
+		if (song.songKey) {
+			console.log("songKey: " + song.songKey);
+			// db.ref(`/votes/${song.songKey}/`).update({  	
+			// 			vote: vote.vote
+      // });
+		}
+		else {
+			console.log("This song is not in Firebase.");
+		}
 	};
+
+	// let upvote = function(song) {
+	//   let votesArr = [];
+	//   getVotes()
+	//   .then((votesArr) => {
+	// 		console.log("Votes from Firebase: ", votes);
+	//   	let inFB = false;
+	//   	let vote;
+  //       votesArr.forEach((item, index) => {
+  //       	if (String(song.songID) === item.songID) {
+  //               inFB = true;
+  //               vote = item;
+  //               item.vote++;
+  // 				return vote;
+  //           }
+  //       });
+  //       if (inFB) {
+  //       	console.log("/votes/" + vote.voteKey);
+  //       	console.log(song.title + "is in Firebase!");
+  //       	db.ref(`/votes/${vote.voteKey}/`).update({  	
+	// 					vote: vote.vote
+  //         });
+  //       } else if (!inFB) {
+  //       	console.log(song.title + " is NOT in Firebase!");
+  //       	db.ref(`/votes/`).push({
+	// 					vote: 1,
+	// 					title: song.title,
+	// 					songID: song.songID
+	// 				});
+  //       }
+	//   });
+	// };
 
 	let downvote = function(song) {
 	  db.ref(`/votes/`).update({
