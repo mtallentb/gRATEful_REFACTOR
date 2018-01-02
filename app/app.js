@@ -37,7 +37,7 @@ app.config(($routeProvider, SpotifyProvider, SpotifyCreds) => {
     .otherwise('/');
 
     SpotifyProvider.setClientId(`${SpotifyCreds.client_id}`);
-    SpotifyProvider.setRedirectUri('https://e7076a4c.ngrok.io/');
+    SpotifyProvider.setRedirectUri('https://gratefulapp.surge.sh/');
     SpotifyProvider.setScope('user-read-private playlist-read-private playlist-modify-private playlist-modify-public');
 
 });
