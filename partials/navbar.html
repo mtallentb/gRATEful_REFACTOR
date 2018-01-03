@@ -4,14 +4,10 @@
 	    	<div class="container">
 		      <a href="#" class="brand-logo">gRATEful</a>
 		      <ul id="nav-mobile" class="right hide-on-med-and-down">
+						<li><a id="search" ng-if="loggedIn" href="#!/">Search</a></li>
 		        <li><a id="login" ng-click="login()" ng-if="!loggedIn">Login</a></li>
-		        <li><a ng-click="loginSpotify()" ng-if="loggedIn">Spotify Login</a></li>
 		        <li><a ng-if="loggedIn" href="#!/favorites">Favorites</a></li>
 		        <li><a id="logout" ng-click="logout()" ng-if="loggedIn">Logout</a></li>
-		        <!-- <li><a id="songList" ng-click="listSongs()">List Songs</a></li>
-		        <li><a id="getSongs" ng-click="getUserKeys()">Get Songs</a></li>
-		        <li><a id="logVotes" ng-click="logVotes()">Log Votes</a></li>
-		        <li><a id="getComments" ng-click="getComments()">Get Comments</a></li> -->
 		      </ul>
 		    </div>
 	    </div>

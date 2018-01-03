@@ -20,20 +20,46 @@
     }
   </script>
 </head>
-<body ng-app="Practice">
+<body ng-app="gRATEful">
 	
 	<div ng-include="'partials/navbar.html'"></div>
 
-	<div ng-view></div>
+	<div class="container" ng-if="!isAuthed">
+
+		<h2 class="center">The gRATEful App</h2>
+		
+		<span class="center-img">
+			<img src="../app/images/dead-b&w.jpg"/>
+		</span>
+
+		<p>Over the course of their 30 year musical history, the Grateful Dead played more than 2,300 live shows around the globe. The goal of this app is to find the "best" live versions of any song!</p>
+
+		<p>This app is a project for Nashville Software School.</p>
+		<p>It is built upon the AngularJS framework and uses Firebase in conjunction with Spotify's API.</p>
+
+		<h5>Instructions</h5>
+
+		<p>1. Login using your Google account and Spotify account.</p>
+		<p>2. Search a song. Upvote or downvote it, leave a comment, or add it to your favorites!</p>
+		<p>3. Enjoy!</p>
+
+	</div>
+
+	<div class="content">
+		<div ng-view></div>
+	</div>
+
+	<footer class="page-footer blue darken-4">
+				<p class="copyright">Copyright 2017 - 2018 Matt Brown</p>
+	</footer>
 
 	<!-- CDN links -->
-	<script type="text/javascript" src="./lib/node_modules/firebase/firebase.js"></script>
-	<script type="text/javascript" src="./lib/node_modules/jquery/dist/jquery.min.js"></script>
-	<script type="text/javascript" src="./lib/node_modules/angular/angular.min.js"></script>
-	<script type="text/javascript" src="./lib/node_modules/angular-route/angular-route.min.js"></script>
-	<script type="text/javascript" src="./lib/node_modules/angular-spotify/src/angular-spotify.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular-route.min.js"></script>
+	<script type="text/javascript" src="./lib/production_modules/angular-spotify/src/angular-spotify.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
 	<script type="text/javascript" src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.2.2/angular-materialize.min.js"></script>
 
