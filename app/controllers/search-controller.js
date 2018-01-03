@@ -52,14 +52,9 @@ app.controller("searchCtrl", function($scope, $q, $route, $window, $location, fi
         console.log("Loading Comments...");
         firebaseFactory.getComments()
         .then((comments) => {
-            console.log("Comments: ", comments);
             let keys = Object.keys(comments);
             keys.forEach((item, index) => {
-                console.log(comments[item]);
                 $scope.commentsArr.push(comments[item]);
-                console.log(" ");
-                console.log("Commentor's Name:", comments[item].commentor);
-                console.log("Comment: ", comments[item].comment);
             });
             console.log("Comments Array:", $scope.commentsArr);
             return $scope.commentsArr;
@@ -131,7 +126,6 @@ app.controller("searchCtrl", function($scope, $q, $route, $window, $location, fi
                 item.vote++;
             }
         });
-        console.log("New Sorted Song Results", $scope.songResults);
     };
 
     $scope.downvote = function(song) {
@@ -165,11 +159,17 @@ app.controller("searchCtrl", function($scope, $q, $route, $window, $location, fi
         let userSongsArr;
         firebaseFactory.getVotes()
         .then((votes) => {
-            console.log("Votes: ", votes);
-            let voteArr = Object.values(votes).sort((a, b) => {
-                return b.vote - a.vote;
-            });
-            return voteArr;
+            if (votes) {
+                console.log("Votes: ", votes);
+                let voteArr = Object.values(votes).sort((a, b) => {
+                    return b.vote - a.vote;
+                });
+                return voteArr;
+            }
+            else {
+                console.log("There are no votes!");
+                return [];
+            }
         })
         .then((voteArr) => {
             firebaseFactory.getUserSongs()

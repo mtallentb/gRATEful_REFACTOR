@@ -5,6 +5,7 @@ app.factory("firebaseFactory", function($q, $http, $rootScope, FBCreds) {
 	let provider = new firebase.auth.GoogleAuthProvider();
 	let currentUser = null;
 	let userSongArr = [];
+	let voteArr = [];
 	let search = { song: "" };
 
 	firebase.auth().onAuthStateChanged((user) => {
@@ -62,16 +63,23 @@ app.factory("firebaseFactory", function($q, $http, $rootScope, FBCreds) {
 	};
 
 	let getVotes = function() {
-	    let userID = getCurrentUser();
 	    return $.ajax({
 	        url: `https://practice-1fe79.firebaseio.com/votes/.json?orderBy="$key"`
 	    }).done((data) => {
-		    let votes = data;
-		    let keys = Object.keys(votes);
-		    keys.forEach((item, index) => {
-		    	votes[item].key = item;
-		    });
-		    return votes;
+				let votes = data.data;
+				if (votes) {
+					let keys = Object.keys(votes);
+					keys.forEach((item, index) => {
+						let thisVote = votes[item];
+						thisVote.songKey = item;
+						voteArr.push(thisVote);
+					});
+					console.log("Data from getVotes(): " + votes);
+					return votes;
+				}
+				else {
+					console.log("There are no votes!");
+				}
 	    });
 	};
 
@@ -101,56 +109,78 @@ app.factory("firebaseFactory", function($q, $http, $rootScope, FBCreds) {
 		});
 	};
 
-	let upvote = (song) => {
-		console.log("Song Info: " + JSON.stringify(song));
-		if (song.songKey) {
-			console.log("songKey: " + song.songKey);
-			// db.ref(`/votes/${song.songKey}/`).update({  	
-			// 			vote: vote.vote
-      // });
-		}
-		else {
-			console.log("This song is not in Firebase.");
-		}
+	let getVote = (song) => {
+		return $q((resolve, reject) => {
+			$http.get(`https://practice-1fe79.firebaseio.com/votes/.json?orderBy="$key"`)
+			.then((response) => {
+				console.log(response.data);
+				let keys = Object.keys(response.data);
+				console.log("Vote Keys: " + keys);
+				keys.forEach((item, index) => {
+					let thisVote = response.data[item];
+					thisVote.songKey = item;
+					voteArr.push(thisVote);
+				});
+				resolve(voteArr);
+			},
+			(error) => {
+				reject(error);
+			});
+			console.log("Song Info: " + JSON.stringify(song));
+		});
 	};
 
-	// let upvote = function(song) {
-	//   let votesArr = [];
-	//   getVotes()
-	//   .then((votesArr) => {
-	// 		console.log("Votes from Firebase: ", votes);
-	//   	let inFB = false;
-	//   	let vote;
-  //       votesArr.forEach((item, index) => {
-  //       	if (String(song.songID) === item.songID) {
-  //               inFB = true;
-  //               vote = item;
-  //               item.vote++;
-  // 				return vote;
-  //           }
-  //       });
-  //       if (inFB) {
-  //       	console.log("/votes/" + vote.voteKey);
-  //       	console.log(song.title + "is in Firebase!");
-  //       	db.ref(`/votes/${vote.voteKey}/`).update({  	
-	// 					vote: vote.vote
-  //         });
-  //       } else if (!inFB) {
-  //       	console.log(song.title + " is NOT in Firebase!");
-  //       	db.ref(`/votes/`).push({
-	// 					vote: 1,
-	// 					title: song.title,
-	// 					songID: song.songID
-	// 				});
-  //       }
+	let upvote = (song) => {
+		let inFB = false;
+		getVote()
+		.then((votes) => {
+			console.log(votes);
+			votes.forEach((item, index) => {
+				if (item.songID === song.songID) {
+					db.ref(`/votes/${item.songKey}/`).update({	
+						vote: item.vote + 1 
+      		});
+					inFB = true;
+				}
+			});
+			if (!inFB) {
+				db.ref(`/votes/`).push({
+					title: song.title,
+					songID: song.songID,
+					vote: 1 
+      	});
+			}
+		});
+	};
+
+	let downvote = (song) => {
+		let inFB = false;
+		getVote()
+		.then((votes) => {
+			console.log(votes);
+			votes.forEach((item, index) => {
+				if (item.songID === song.songID) {
+					db.ref(`/votes/${item.songKey}/`).update({	
+						vote: item.vote - 1 
+      		});
+					inFB = true;
+				}
+			});
+			if (!inFB) {
+				db.ref(`/votes/`).push({
+					title: song.title,
+					songID: song.songID,
+					vote: -1 
+      	});
+			}
+		});
+	};
+
+	// let downvote = function(song) {
+	//   db.ref(`/votes/`).update({
+	//     vote: -1
 	//   });
 	// };
-
-	let downvote = function(song) {
-	  db.ref(`/votes/`).update({
-	    vote: -1
-	  });
-	};
 
 	let addToFavorites = function(song) {
 		let userID = getCurrentUser();
