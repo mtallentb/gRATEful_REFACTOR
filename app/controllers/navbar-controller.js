@@ -23,7 +23,7 @@ app.controller("navbarCtrl", function($scope, $rootScope, $route, $location, fir
     });
 
     /* log into Firebase */
-    $scope.login = function() {
+    $scope.login = () => {
         firebaseFactory.logInGoogle()
         .then(() => {
             console.log("Logging into Spotify...");
@@ -37,7 +37,8 @@ app.controller("navbarCtrl", function($scope, $rootScope, $route, $location, fir
         });
     };
 
-    $scope.logout = function() {
+    /* logs out and reloads route */
+    $scope.logout = () => {
         firebaseFactory.logOut()
         .then(() => {
             $scope.loggedIn = false;
@@ -48,29 +49,8 @@ app.controller("navbarCtrl", function($scope, $rootScope, $route, $location, fir
         });
     };
 
-    $scope.getUserKeys = function() {
-        firebaseFactory.getUserKeys()
-        .then((results) => {
-            console.log("User Song Results:", results);
-        });
-    };
-
-    $scope.listSongs = function() {
-        console.log("Listing Songs...");
-        $scope.songArr = firebaseFactory.getUserSongs();
-        console.log("Listed Array:", $scope.songArr);
-        return $scope.songArr;
-    };
-
-    $scope.logVotes = function() {
-        console.log("Listing Votes...");
-        firebaseFactory.getVotes()
-        .then((results) => {
-            console.log("Vote Results:", results);
-        });
-    };
-
-    $scope.getComments = function() {
+    /* fetches comments from Firebase */
+    $scope.getComments = () => {
         console.log("Loading Comments...");
         firebaseFactory.getComments()
         .then((results) => {
@@ -78,16 +58,14 @@ app.controller("navbarCtrl", function($scope, $rootScope, $route, $location, fir
         });
     };
 
-    $scope.getSongs = function() {
+    /* fetches favorites from Firebase */
+    $scope.getSongs = () => {
         $scope.showArr = true;
-        firebaseFactory.getSongs()
-        .then((songData) => {
-            console.log(Object.keys(songData));
-            let songKeys = Object.keys(songData);
-            songKeys.forEach((item, index) => {
-                let thisSong = songData[item];
-                thisSong.songKey = item;
-                $scope.mainSongArr.push(thisSong);
+        firebaseFactory.getFavorites()
+        .then((favorites) => {
+            console.log(favorites);
+            favorites.forEach((item, index) => {
+                $scope.mainSongArr.push(item);
             });
             $scope.mainSongArr.sort((a, b) => {
                 return a.vote - b.vote;

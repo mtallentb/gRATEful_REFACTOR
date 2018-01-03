@@ -34,7 +34,7 @@
 							
 						    <!-- FAVORITE BUTTON FOR SONGS IN FIREBASE -->
 				    	
-							<a ng-click="song.favorite = !song.favorite; addToFavorites(songResults[$index])">
+							<a ng-click="addToFavorites(songResults[$index])">
 						    	<i id="fav--{{song.songID}}" class="small favs right material-icons">{{song.favorite ? 'favorite' : 'favorite_border'}}</i>
 						    </a>
 
