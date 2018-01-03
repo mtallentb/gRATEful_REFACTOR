@@ -20,47 +20,8 @@ app.controller("searchCtrl", function($scope, $q, firebaseFactory, Spotify){
     /* searches on Enter keypress */
     $scope.keypress = (event) =>  {
         if (event.keyCode == 13) {
-            console.log("Enter Pressed!");
             $scope.searchSpotify();
         }
-    };
-
-
-    /* fetches songs from Firebase. Pushes all data to new array and sorts it */
-    $scope.getSongs = () => {
-        $scope.showArr = true;
-        console.log("Loading Songs...");
-        firebaseFactory.getFavorites()
-        .then((favorites) => {
-            console.log(Object.keys(favorites));
-            let songKeys = Object.keys(favorites);
-            songKeys.forEach((item, index) => {
-                console.log("Item:", item);
-                let thisSong = favorites[item];
-                thisSong.songKey = item;
-                $scope.mainSongArr.push(thisSong);
-            });
-            $scope.mainSongArr.sort((a, b) => {
-                return a.vote - b.vote;
-            });
-            console.log("Sorted Array:", $scope.mainSongArr);
-            return $scope.mainSongArr;
-        });
-        return $scope.mainSongArr;
-    };
-
-    /* fetches comments from Firebase */
-    $scope.getComments = () => {
-        console.log("Loading Comments...");
-        firebaseFactory.getComments()
-        .then((comments) => {
-            let keys = Object.keys(comments);
-            keys.forEach((item, index) => {
-                $scope.commentsArr.push(comments[item]);
-            });
-            console.log("Comments Array:", $scope.commentsArr);
-            return $scope.commentsArr;
-        });
     };
 
     /* pushes new comment to Firebase */
@@ -82,7 +43,6 @@ app.controller("searchCtrl", function($scope, $q, firebaseFactory, Spotify){
      
     /* increments vote count for given song in Firebase and locally */
     $scope.upvote = (song) => {
-        console.log("Upvoted " + song.title + "!");
         firebaseFactory.upvote(song);
         $scope.songResults.forEach((item, index) => {
             if (song.songID === item.songID) {
@@ -93,7 +53,6 @@ app.controller("searchCtrl", function($scope, $q, firebaseFactory, Spotify){
 
     /* decrements vote count for given song in Firebase and locally */
     $scope.downvote = (song) => {
-        console.log("Downvoted " + song.name + "!");
         firebaseFactory.downvote(song);
         $scope.songResults.forEach((item, index) => {
             if (song.songID === item.songID) {
@@ -111,20 +70,18 @@ app.controller("searchCtrl", function($scope, $q, firebaseFactory, Spotify){
         let inFB = false;
         firebaseFactory.getFavorites()
         .then((favorites) => {
-            console.log(favorites);
+
             favorites.forEach((item, index) => {
                 if (song.songID === item.songID) {
                     if (!song.songkey) {
                         song.songKey = item.songKey;
                     }
                     if (!item.favorite) {
-                        console.log(item.favorite + " <= should be false.");
                         firebaseFactory.updateFavoritesAdd(song);
                         song.favorite = true;
                         inFB = true;
                     }
                     else if (item.favorite) {
-                        console.log(item.favorite + " <= should be true.");
                         firebaseFactory.updateFavoritesRemove(song);
                         song.favorite = false;
                         inFB = true;
@@ -132,7 +89,6 @@ app.controller("searchCtrl", function($scope, $q, firebaseFactory, Spotify){
                 }
             });
             if (!inFB) {
-                console.log(inFB + "<= inFB should be false.");
                 firebaseFactory.addToFavorites(song);
                 song.favorite = true;
             }
@@ -141,23 +97,22 @@ app.controller("searchCtrl", function($scope, $q, firebaseFactory, Spotify){
 
     /* searches Spotify API for songs. pulls data from Firebase. combines all relative data into master array of songs */
     $scope.searchSpotify = (input = $scope.songSearch.song) => {
+        let userID = firebaseFactory.getCurrentUser();
+        let favoritesArr = [];
         $scope.showResults = false;
         $scope.loading = true;
-        let userID = firebaseFactory.getCurrentUser();
-        $scope.getComments();
+        firebaseFactory.getComments();
         $scope.songResults = [];
-        let favoritesArr = [];
         firebaseFactory.getVotes()
         .then((votes) => {
             if (votes) {
-                console.log("Votes: ", votes);
+
                 let voteArr = Object.values(votes).sort((a, b) => {
                     return b.vote - a.vote;
                 });
                 return voteArr;
             }
             else {
-                console.log("There are no votes!");
                 return [];
             }
         })
@@ -176,7 +131,6 @@ app.controller("searchCtrl", function($scope, $q, firebaseFactory, Spotify){
                 Spotify.search(`'${input}', 'Grateful Dead'`, 'track,artist')
                 .then((results) => {
                     let searchResults = results.data.tracks.items;
-                    console.log("Search Results: ", searchResults);
                     searchResults.forEach((item, index) => {
                         item.inFB = false;
                         voteArr.forEach((element, position) => {
@@ -195,7 +149,6 @@ app.controller("searchCtrl", function($scope, $q, firebaseFactory, Spotify){
                                 }
                             });
                         }
-                        // console.log("votedOn: " + item.votedOn + " favorited: " + item.favorited);
                         if (item.votedOn && item.inFB) {
                             $scope.songResults.push({
                                 title: item.name,
@@ -237,7 +190,6 @@ app.controller("searchCtrl", function($scope, $q, firebaseFactory, Spotify){
                             });
                         }
                     });
-                    console.log("Song Results: ", $scope.songResults);
                 })
                 .then(() => {
                     $scope.loading = false;

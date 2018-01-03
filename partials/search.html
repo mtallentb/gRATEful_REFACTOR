@@ -13,7 +13,7 @@
 		<div class="row">
 			
 			<div class="preloader-wrapper active center" ng-if="loading">
-			    <div class="spinner-layer spinner-red-only">
+			    <div class="spinner-layer spinner-red-only center">
 			      <div class="circle-clipper left">
 			        <div class="circle"></div>
 			      </div><div class="gap-patch">
@@ -34,14 +34,14 @@
 							
 						    <!-- FAVORITE BUTTON FOR SONGS IN FIREBASE -->
 				    	
-							<a ng-click="addToFavorites(songResults[$index])">
-						    	<i id="fav--{{song.songID}}" class="small favs right material-icons">{{song.favorite ? 'favorite' : 'favorite_border'}}</i>
-						    </a>
+							<a ng-click="addToFavorites(song)">
+						    <i id="fav--{{song.songID}}" class="small favs right material-icons">{{song.favorite ? 'favorite' : 'favorite_border'}}</i>
+						  </a>
 
 						 <!-- UPVOTE/DOWNVOTE -->
-					    <div id="upvote--${{$index}}">
+					    <div>
 					    	<a ng-click="downvote(song)">
-								<i id="downvote--{{song.songID}}" class="small  right material-icons" onclick="Materialize.toast('Downvoted!', 1000, 'red')">arrow_drop_down</i>
+								<i class="small right material-icons" onclick="Materialize.toast('Downvoted!', 1000, 'red')">arrow_drop_down</i>
 							</a>
 
 							<!-- <div ng-repeat="vote in votes"> -->
@@ -49,7 +49,7 @@
 							<!-- </div> -->
 
 					    	<a ng-click="upvote(song)">
-								<i id="upvote--{{song.songID}}" class="small right material-icons" onclick="Materialize.toast('Upvoted!', 1000, 'green')">arrow_drop_up</i>
+								<i class="small right material-icons" onclick="Materialize.toast('Upvoted!', 1000, 'green')">arrow_drop_up</i>
 							</a>
 					    </div>
 						<!-- COLLAPSIBLE COMMENT SECTION -->
@@ -72,7 +72,7 @@
 								        </div>
 								      </div>
 								      <div class="row">
-										<a id="submit-{{song.songID}}" class="waves-effect waves-light btn blue darken-2" ng-click="pushComment(song)">Submit</a>
+										<a class="waves-effect waves-light btn blue darken-2" ng-click="pushComment(song)">Submit</a>
 								      </div>
 								    </form>
 							    </div>
