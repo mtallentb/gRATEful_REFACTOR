@@ -1,0 +1,80 @@
+{
+  "_from": "angular-spotify@^1.5.1",
+  "_id": "angular-spotify@1.5.1",
+  "_inBundle": false,
+  "_integrity": "sha1-BE+Zd/twLILS3tTzKhBjpgyfxvk=",
+  "_location": "/angular-spotify",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "angular-spotify@^1.5.1",
+    "name": "angular-spotify",
+    "escapedName": "angular-spotify",
+    "rawSpec": "^1.5.1",
+    "saveSpec": null,
+    "fetchSpec": "^1.5.1"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-spotify/-/angular-spotify-1.5.1.tgz",
+  "_shasum": "044f9977fb702c82d2ded4f32a1063a60c9fc6f9",
+  "_spec": "angular-spotify@^1.5.1",
+  "_where": "/Users/Admin/Desktop/new-capstone/lib",
+  "author": {
+    "name": "Ed Moore"
+  },
+  "bugs": {
+    "url": "https://github.com/eddiemoore/angular-spotify/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Angular Service to connect to Spotify Web API",
+  "devDependencies": {
+    "codecov": "^2.1.0",
+    "coveralls": "^2.11.9",
+    "grunt": "~1.0.1",
+    "grunt-contrib-clean": "~1.0.0",
+    "grunt-contrib-concat": "~1.0.0",
+    "grunt-contrib-jshint": "~1.1.0",
+    "grunt-contrib-uglify": "^2.2.1",
+    "grunt-contrib-watch": "~1.0.0",
+    "grunt-karma": "^2.0.0",
+    "jasmine-core": "^2.4.1",
+    "jasmine-node": "^1.14.5",
+    "jshint": "^2.9.1",
+    "jshint-stylish": "^2.1.0",
+    "karma": "~1.5.0",
+    "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^1.1.0",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-spec-reporter": "0.0.30",
+    "load-grunt-tasks": "^3.4.1",
+    "phantomjs-prebuilt": "^2.1.7",
+    "time-grunt": "^1.3.0"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "homepage": "https://github.com/eddiemoore/angular-spotify",
+  "keywords": [
+    "spotify",
+    "angular",
+    "angularjs"
+  ],
+  "license": "MIT",
+  "main": "src/angular-spotify.js",
+  "name": "angular-spotify",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eddiemoore/angular-spotify.git"
+  },
+  "scripts": {
+    "codecov": "codecov",
+    "coveralls": "cat ./test/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "prepublish": "grunt",
+    "test": "grunt test"
+  },
+  "version": "1.5.1"
+}
