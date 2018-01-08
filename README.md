@@ -50,7 +50,7 @@ Over the course of their 30 year musical history, the Grateful Dead played more 
 
 #### The database is now set up.
 
-11. update `app/values/fb-creds.js` to contain  the following:
+11. Update `app/values/fb-creds.js` to contain  the following:
 
 ```
 "use strict";
