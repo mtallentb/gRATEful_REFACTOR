@@ -12,6 +12,8 @@
 
 Over the course of their 30 year musical history, the Grateful Dead played more than 2,300 live shows around the globe. The goal of this app is to find the "best" live versions of any song!
 
+[Demo](http://gratefulapp.mttbrwn.com)
+
 ## Getting Started
 
 1. Clone this repo. `git clone https://github.com/mtallentb/gRATEful_REFACTOR.git`
