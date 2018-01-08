@@ -25,7 +25,7 @@ Over the course of their 30 year musical history, the Grateful Dead played more 
 3. Click the `Whitelist client IDs from external projects` tab and add your local redirect URI (normally `https://localhost:3000`).
 4. Click Save.
 5. Click the `Add Domain` button under the Authorized Domains header.
-6. Add the same redirect URI to this fiel as well.
+6. Add the same redirect URI to this file as well.
 7. Click the `Database` tab on the the left navigation panael.
 8. Click the `Rules` tab. The JSON file look like this:
 
@@ -84,7 +84,9 @@ app.constant("SpotifyCreds", {
 
 `SpotifyProvider.setRedirectUri('<YOUR REDIRECT URI />');`
 
-### After Updating Spotify and Firebase Cred
+### After Updating Spotify and Firebase Credentials
 
 1. Move to `lib/` folder and run `grunt`
 2. Start your local server `http-server -S -o` ( may need to `npm install http-server -g`)
+
+### Allow Pop Ups for Spotify Login
