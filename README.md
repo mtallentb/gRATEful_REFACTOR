@@ -92,3 +92,12 @@ app.constant("SpotifyCreds", {
 2. Start your local server `http-server -S -o` ( may need to `npm install http-server -g`)
 
 ### Allow Pop Ups for Spotify Login
+
+## Tech Stack
+
+* [AngularJS](https://angularjs.org/)
+* Firebase(http://firebase.google.com)
+* Spotify API(http://developer.spotify.com)
+
+## Author
+[Matt Brown](mailto:mtallentb.design@gmail.com)
