@@ -96,8 +96,8 @@ app.constant("SpotifyCreds", {
 ## Tech Stack
 
 * [AngularJS](https://angularjs.org/)
-* Firebase(http://firebase.google.com)
-* Spotify API(http://developer.spotify.com)
+* [Firebase](http://firebase.google.com)
+* [Spotify API](http://developer.spotify.com)
 
 ## Author
 [Matt Brown](mailto:mtallentb.design@gmail.com)
